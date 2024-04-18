@@ -21,7 +21,7 @@
       <section class="alert {{message.tags}}">{{message}}</section>
       {% endfor %} {% endif %}
       <br />
-      <form action="{% url "cadastro_medico" %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+      <form action="{% url "cadastro_medico" %}" method="post" enctype='multipart/form-data'>{% csrf_token %}
         <div class="row">
           <div class="col-md">
             <label for="">CRM:</label>
@@ -114,8 +114,9 @@
         <label for="">Especialidade médica</label>
         <select name="especialidade" class="form-select" id="">
           {% for i in especialidades %}
-            <option value="i.id">{{i.especialidade}}</option>
+              <option value="{{i.id}}">{{i.especialidade}}</option>
           {% endfor %}
+
         </select>
         <br />
         <label for="">Descrição:</label>
