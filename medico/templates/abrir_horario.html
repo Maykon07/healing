@@ -9,16 +9,15 @@
 
 
 {% block 'body' %}
-{% include "partials/navbar.html" %}
 
-
+    {% include "partials/navbar.html" %}
     <div class="container">
 
         <br><br>
 
         <div class="row">
             <div class="col-md-8">
-
+                
                 <img src="{{dados_medicos.foto.url}}"  class="foto-perfil" alt="">
                 <label style="margin-left: 30px; font-size: 25px" class="p-bold">Olá, <span class="color-dark">{{request.user.username}}</span></label>
                 
@@ -34,7 +33,7 @@
                 <br>
                 <p style="font-size: 25px" class="p-bold">Abrir horários para consultas</p>
                 <hr>
-                <form action="{% url "abrir_horario" %}" method="POST">{% csrf_token %}
+                <form action="{% url 'abrir_horario' %}" method="POST">{% csrf_token %}
                     <label for="">Escolher data:</label>
                     <input type="datetime-local" name="data" class="form-control shadow-main-color">
                     <br>
@@ -44,8 +43,8 @@
             <div class="col-md-4">
                 <p style="font-size: 25px" class="p-bold">Seus horários:</p>
                 <ul class="list-group">
-                    {% for data in datas_abertas  %}
-                        <li class="list-group-item">{{data}}</li>
+                    {% for data in datas_abertas %}
+                        <li>{{data}}</li>
                     {% endfor %}
                 </ul>
             </div>

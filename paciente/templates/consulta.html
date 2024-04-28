@@ -31,6 +31,7 @@
                 Consulta inicializada, acesse o link imediatamente!
             </div>
         {% endif %}
+
         <div class="row">
             <div class="col-md-8">
                 <div class="row">
@@ -39,6 +40,8 @@
                         <p style="font-size: 20px" class="p-bold">Dr(a). {{dado_medico.nome}} <i class="bi bi-patch-check-fill icon-main"></i></p>
                         <p>{{dado_medico.descricao}}</p>
                         <p class="p-bold">{{consulta.data_aberta.data}}</p>
+
+                        <a href="{% url 'cancelar_consulta' consulta.id %}" class="btn btn-danger">Cancelar consulta</a>
                     </div>
                 </div> 
                 <hr>
@@ -49,7 +52,7 @@
                         <p><i class="color-dark bi bi-check-circle-fill"></i> Consulta agendada</p>
                     </div>
                     <div class="col-md">
-                        <p><i class="{% if consulta.status == 'F' %}color-dark{% endif %} bi bi-check-circle-fill"></i> Consulta realizada</p>
+                        <p><i class="{% if consulta.status == 'F' %} color-dark {% endif %}bi bi-check-circle-fill"></i> Consulta realizada</p>
                     </div>
                     <div class="col-md">
                         <p><i class="bi bi-check-circle-fill"></i> Consulta Avaliada</p>
@@ -64,26 +67,22 @@
                 <h3 class="p-bold">Como acessar ?</h3>
                 <p>No horário da consulta acesse o link disponível abaixo</p>
 
-                {% if consulta.status == 'I' and consulta.link %}
-                    <a href="{{consulta.link}}"  class="btn btn-success btn-dark-color btn-lg" >Acessar consulta</a>
+                {% if consulta.status == 'I' and consulta.link %}                
+                    <a href="{{consulta.link}}" class="btn btn-success btn-dark-color btn-lg" >Acessar consulta</a>
                 {% else %}
-
-                    <a href="#"  class="btn btn-success btn-dark-color btn-lg disabled" >Acessar consulta</a>
-
+                    <a href="#" class="btn btn-success btn-dark-color btn-lg disabled" >Acessar consulta</a>
                 {% endif %}
-
                 
                 <hr>
+
+                <hr>
+
                 <h3 class="p-bold">Meus documentos</h3>
                 <br>
-                {% for documento in documentos %}
-                    
-                    <a href="{{documento.documento.url}}" class="link documentos"><i class="bi bi-file-arrow-down"></i> {{documento.titulo}} - {{documento.consulta.data_aberta.data.year}}</a>
-                    <br>
-                    <br><br>
-
-                {% endfor %}
-            
+                    {% for documento in documentos %}
+                        <a href="{{documento.documento.url}}" class="link documentos"><i class="bi bi-file-arrow-down"></i> {{documento.titulo}} - {{documento.consulta.data_aberta.data.year}}</a>
+                        <br><br><br>                
+                    {% endfor %}
                 <br>
                 <br>
                 <br>

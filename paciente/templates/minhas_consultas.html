@@ -12,7 +12,7 @@
 {% endblock 'head' %}
 
 {% block 'body' %}
-{% include "partials/navbar.html" %}
+    {% include "partials/navbar.html" %}
 
     <div class="container">
         <br>
@@ -21,7 +21,12 @@
         <div class="row">
 
             <div class="col-md">
-                <input type="text" name="especialidades" id="" class="form-control shadow-main-color" placeholder="Especialidades médias">
+                <form action="">
+                <select name="especialidade" class="form-select">
+                    {% for especialidade in especialidades %}
+                        <option value="{{especialidade.id}}">{{especialidade}}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="col-md">
                 <input type="date" name="data" id="" class="form-control shadow-main-color" placeholder="Data da consulta">
@@ -46,7 +51,7 @@
                 <tbody>
                     {% for consulta in minhas_consultas  %}
                         <tr>
-                            <td><a href="{% url "consulta" consulta.id %}">Dr(a). {{consulta.data_aberta.user}}</a></td>
+                            <td><a href="{% url 'consulta' consulta.id %}">Dr(a). {{consulta.data_aberta.user}}</a></td>
                             <td>{{consulta.get_status_display}}</td>
                             <td>{{consulta.data_aberta.data}}</td>
                         </tr>

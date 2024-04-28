@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9cgs5mraom#xyzy#e(-n+jrlei@ho(2=3#zdj(27q$gvkv1&3s'
+SECRET_KEY = 'django-insecure-+*015cajl8iy&e=(zeah@f)&qtq4!uu5$i%^#_*$s9_%h&ldhq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'medico',
-    'paciente',
+    'paciente'
 ]
 
 MIDDLEWARE = [
@@ -115,27 +115,27 @@ USE_I18N = True
 
 USE_TZ = False
 
+APPEND_SLASH = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-#onde procurar as pastas
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
-#STATIC_ROOT = os.path.join('static')
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),) #arquivos estáticos
+STATIC_ROOT = os.path.join('static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #uploads dos users
 MEDIA_URL = '/media/'
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#mensagens de erro do cadastros
+# Messages
 
 from django.contrib.messages import constants
+
 MESSAGE_TAGS = {
     constants.DEBUG: 'alert-primary',
     constants.ERROR: 'alert-danger',
@@ -143,4 +143,3 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
     constants.WARNING: 'alert-warning',
 }
-

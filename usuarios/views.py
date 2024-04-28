@@ -4,58 +4,61 @@ from django.contrib.auth.models import User
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.contrib import auth
-# Create your views here.
 
+# cadastro de usuário
 def cadastro(request):
     if request.method == "GET":
-      return render(request, 'cadastro.html')
+        #cadastro.html
+        return render(request, 'cadastro.html')
     elif request.method == "POST":
-       username = request.POST.get('username')
-       email = request.POST.get('email')
-       senha = request.POST.get('senha')
-       confirmar_senha = request.POST.get('confirmar_senha')
+        #submit
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        confirmar_senha = request.POST.get('confirmar_senha')
 
-       if senha != confirmar_senha:
-        messages.add_message(request, constants.ERROR, "A senha e o confirmar senha devem ser iguais")
-        return redirect('/usuarios/cadastro')
-       
-       if len(senha) < 6:
-          messages.add_message(request, constants.ERROR, "A senha deve ter mais de 6 dígitos")
-          return redirect('/usuarios/cadastro')
-       
-       users = User.objects.filter(username=username)
+        # senhas precisam ser iguais
+        if senha != confirmar_senha:
+            messages.add_message(request, constants.ERROR, "A senha e o confirmar senha devem ser iguais")
+            return redirect('/usuarios/cadastro/')
+        
+        # tamanho da senha precia ser 6
+        if len(senha) < 6:
+            messages.add_message(request, constants.ERROR, "A senha deve ter mais de 6 dígitos")
+            return redirect('/usuarios/cadastro/')
+        
+        #verificação de repetidos
+        users = User.objects.filter(username=username)
+        
+        if users.exists():
+            messages.add_message(request, constants.ERROR, "Já existe um usuário com esse nome")
+            return redirect('/usuarios/cadastro/')
 
-       if users.exists():
-          messages.add_message(request, constants.ERROR, "Já existe um usuário com esse username")
-          return redirect('/usuarios/cadastro')
-       
-       #cadastrando usuaro no banco de dados
-       user = User.objects.create_user(
-          username=username,
-          email=email,
-          password=senha
-       )
-          
-       return redirect('/usuarios/login')
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=senha
+        )
+
+        return redirect('/usuarios/login/')
     
-
 def login_view(request):
-   if request.method == "GET":
-      return render(request, 'login.html')
-   elif request.method == "POST":
-      username = request.POST.get('username')
-      senha = request.POST.get('senha')
+    if request.method == "GET":
+        return render(request, 'login.html')
+    elif request.method == "POST":
+        username = request.POST.get('username')
+        senha = request.POST.get('senha')
 
-      user = auth.authenticate(request, username=username, password=senha)
+        # verificar se existe o user no banco de dados
+        user = auth.authenticate(request, username=username, password=senha)
 
-      if user:
-         auth.login(request, user)
-         return redirect('/pacientes/home') #vai dar erro
-
-      messages.add_message(request, constants.ERROR, 'Usuário ou senha invalidos')
-      return redirect('/usuarios/login')   
-
-
+        if user:
+            auth.login(request, user) #login
+            return redirect('/pacientes/home/')
+        
+        messages.add_message(request, constants.ERROR, 'Usuário ou senha inválidos')
+        return redirect('/usuarios/login/')
+    
 def sair(request):
-   auth.logout(request)
-   return redirect('/usuarios/login')
+    auth.logout(request) #logout
+    return redirect('/usuarios/login/')

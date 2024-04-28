@@ -54,7 +54,7 @@
                 <tbody>
                     {% for consulta in consultas_hoje  %}
                         <tr>
-                            <td><a href="{% url "consulta_area_medico" consulta.id %}">{{consulta.paciente}}</a></td>
+                            <td><a href="{% url 'consulta_area_medico' consulta.id %}">{{consulta.paciente}}</a></td>
                             <td>{{consulta.get_status_display}}</td>
                             <td>{{consulta.data_aberta.data}}</td>
                         </tr>
@@ -80,7 +80,7 @@
                 <tbody>
                     {% for consulta in consultas_restantes  %}
                         <tr>
-                            <td><a href="{% url "consulta_area_medico" consulta.id %}">{{consulta.paciente}}</a></td>
+                            <td><a href="{% url 'consulta_area_medico' consulta.id %}">{{consulta.paciente}}</a></td>
                             <td>{{consulta.get_status_display}}</td>
                             <td>{{consulta.data_aberta.data}}</td>
                         </tr>

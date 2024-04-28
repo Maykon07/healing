@@ -13,8 +13,8 @@
 
 
 {% block 'body' %}
-{% include "partials/navbar.html" %}
 
+    {% include "partials/navbar.html" %}
     <div class="container">
         <br><br>
 
@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-md-3"><img src="{{medico.foto.url}}" class="foto-perfil-card" alt=""></div>
                     <div class="col-md">
-                        <p style="font-size: 20px" class="p-bold">Dr(a). {{medico.nome}}  <i class="bi bi-patch-check-fill icon-main"></i></p>
+                        <p style="font-size: 20px" class="p-bold">Dr(a). {{medico.nome}} <i class="bi bi-patch-check-fill icon-main"></i></p>
                         <p>{{medico.descricao}}</p>
                     </div>
                 </div> 
@@ -45,24 +45,24 @@
                     
                     {% for data_aberta in datas_abertas %}
                         <div class="col-md-3">
-                            <a class="link" href="{% url "agendar_horario" data_aberta.id %}">
-                            <div class='selecionar-dia'>
-                            <div class="header-dias">
-                                <span class="mes">
-                                {{data_aberta.data.month}}
-                                </span>
-                                
-                                <span class="dia-semana">
-                                {{data_aberta.data.weekday}}
-                                </span>
-                            </div>
-            
-                            <div class="conteudo-data">
-                                {{data_aberta.data}}
-                            </div>
-                            </div>
+                            <a class="link" href="{% url 'agendar_horario' data_aberta.id %}">
+                                <div class='selecionar-dia'>
+                                    <div class="header-dias">
+                                        <span class="mes">
+                                            {{data_aberta.data|date:"F"}}
+                                        </span>
+                                    
+                                        <span class="dia-semana">
+                                            {{data_aberta.data|date:"l"}}
+                                        </span>
+                                    </div>
+                        
+                                    <div class="conteudo-data">
+                                        {{data_aberta.data}}
+                                    </div>
+                                </div>
                             </a>
-                            <br>
+                        <br>
                         </div>
                     {% endfor %}
                     
